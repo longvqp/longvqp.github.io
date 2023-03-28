@@ -1,3 +1,127 @@
 .sideNav {
-    background-color: gray;
+  background-color: rgb(70, 70, 70);
 }
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.navbar .navItem {
+  background-color: rgb(255, 255, 255);
+  font-size: 22px;
+  padding: 10px;
+}
+.navbar .home {
+  background-color: rgb(75, 75, 75);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  max-width: fit-content;
+  padding-right: 30px;
+  padding-left: 75px;
+}
+.navbar .home a:hover {
+  font-weight: bolder;
+  color: rgb(81, 225, 199);
+}
+.navbar .home a {
+  font-weight: bolder;
+  color: rgb(70, 178, 158);
+  text-decoration: none;
+}
+
+.navbar .subnav .p-2 {
+  font-weight: bold;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.subnav a {
+  color: rgb(98, 176, 165);
+  padding: 10px;
+  text-decoration: none;
+}
+.subnav a:hover {
+  padding: 10px;
+  background-color: rgb(75, 75, 75);
+  border-radius: 50px;
+  color: white;
+}
+#hi {
+  color: rgb(238, 58, 89);
+}
+.title {
+  letter-spacing: 8px;
+  font-weight: 700;
+  font-size: 45px;
+}
+
+.job {
+  color: rgb(98, 176, 165);
+  font-weight: lighter;
+  font-size: 15px;
+  letter-spacing: 3px;
+}
+
+.coverImg img {
+  max-width: 100%;
+}
+
+.greeting {
+  margin-top: 13vh;
+}
+.desc {
+  margin-top: 5vh;
+  width: 75%;
+}
+.desc p {
+  color: rgb(75, 75, 75);
+  font-size: 15px;
+  letter-spacing: 0px;
+  font-weight: 100;
+}
+
+.button {
+  margin-top: 10vh;
+}
+.button a {
+  text-decoration: none;
+  font-size: 28px;
+  letter-spacing: 3px;
+  font-weight: 500;
+  background-color: rgba(75, 75, 75, 0);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgb(44, 110, 124);
+  border: 3px solid rgb(44, 110, 124);
+  border-radius: 50px;
+}
+
+.button a:hover {
+  background-color: rgb(44, 110, 124);
+  color: white;
+}
+
+.scroll_down {
+    margin-top: 10vh;
+  text-align: center;
+  padding: 2vh;
+  height: 14vh;
+}
+
+.scroll_down h4 {
+  animation: jumpInfinite 2s infinite;
+}
+@keyframes jumpInfinite {
+    0% {
+      margin-top: 0;
+    }
+  
+    50% {
+      margin-top: 10px;
+    }
+  
+    100% {
+      margin-top: 0;
+    }
+  }
