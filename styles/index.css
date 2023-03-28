@@ -103,6 +103,7 @@ body {
 }
 
 .scroll_down {
+  color: rgb(75, 75, 75);
     margin-top: 10vh;
   text-align: center;
   padding: 2vh;
