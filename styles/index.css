@@ -67,7 +67,7 @@ body {
 
 .greeting {
   margin-top: 13vh;
-  height: 100vh;
+  height: 90vh;
 }
 .desc {
   margin-top: 5vh;
@@ -113,23 +113,38 @@ body {
   animation: jumpInfinite 2s infinite;
 }
 @keyframes jumpInfinite {
-    0% {
-      margin-top: 0;
-    }
-  
-    50% {
-      margin-top: 10px;
-    }
-  
-    100% {
-      margin-top: 0;
-    }
+  0% {
+    margin-top: 0;
   }
 
-  .aboutMe{
-    height: 100vh;
-    background-position: center; /* Center the image */
+  50% {
+    margin-top: 10px;
+  }
+
+  100% {
+    margin-top: 0;
+  }
+}
+
+.webdesign {
+  height: 100vh;
+  
+}
+
+.background_website_design{
+  height: 100vh;
+  position: absolute;
+  background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-    background-image: url("/assets/images/background.png");
-  }
+  background-image: url("/assets/images/background.png");
+}
+
+.main_website_design{
+  height: 100vh;
+  position: absolute;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  background-image: url("/assets/images/website_design.png");
+}
