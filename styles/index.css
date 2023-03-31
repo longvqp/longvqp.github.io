@@ -1,13 +1,19 @@
-.sideNav {
-  background-color: rgb(70, 70, 70);
-}
-
 body {
   font-family: "Montserrat", sans-serif;
 }
 
+.container-fluid{
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  background-image: url("/assets/images/main_bg.png");
+}
+
+.landing{
+  height: 100vh;
+}
 .navbar .navItem {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255,0);
   font-size: 22px;
   padding: 10px;
 }
@@ -66,6 +72,7 @@ body {
 }
 
 .greeting {
+  
   margin-top: 13vh;
   height: 90vh;
 }
@@ -146,5 +153,59 @@ body {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-  background-image: url("/assets/images/website_design.png");
+  background-image: url("/assets/images/website_element.png");
+}
+
+.corner_website_design{
+  height: 100vh;
+  position: absolute;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  background-image: url("/assets/images/website_corner.png");
+}
+
+
+.designText{
+  height: 100vh;
+  line-height: 100vh;
+}
+.designText p{
+  line-height: normal;
+  display: inline-block;
+  color: rgb(75, 75, 75);
+  justify-content: center;
+  text-align: center;
+  font-size: 32px;
+  background-color: red;
+  vertical-align: middle;
+  padding: 20px;
+  background:
+    linear-gradient(to right, black 4px, transparent 4px) 0 0,
+    linear-gradient(to right, black 4px, transparent 4px) 0 100%,
+    linear-gradient(to left, black 4px, transparent 4px) 100% 0,
+    linear-gradient(to left, black 4px, transparent 4px) 100% 100%,
+    linear-gradient(to bottom, black 4px, transparent 4px) 0 0,
+    linear-gradient(to bottom, black 4px, transparent 4px) 100% 0,
+    linear-gradient(to top, black 4px, transparent 4px) 0 100%,
+    linear-gradient(to top, black 4px, transparent 4px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+
+.overlay{
+  height: 100vh;
+  position: absolute;
+}
+
+.Pagebreaks1{
+  height: 5vh;
+  background-color: rgb(248, 250, 250);
 }

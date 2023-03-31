@@ -8,7 +8,7 @@
       @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
     </style>
     <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Bootstrap Library -->
     <link
@@ -31,58 +31,102 @@
   </head>
   <body>
     <div class="container-fluid">
-      <header>
-        <div class="row navbar">
-          <div class="col-md-2 d-flex flex-row navItem home">
-            <div class="p-2"><a href="#"> Home </a></div>
+      <div class="row landing">
+        <header>
+          <div class="row navbar">
+            <div class="col-md-2 d-flex flex-row navItem home">
+              <div class="p-2"><a href="#"> Home </a></div>
+            </div>
+            <div class="col-md-10 d-flex flex-row-reverse navItem subnav">
+              <div class="p-2"><a href="#"> Contact</a></div>
+              <div class="p-2"><a href="#"> Project</a></div>
+              <div class="p-2"><a href="#"> About </a></div>
+            </div>
           </div>
-          <div class="col-md-10 d-flex flex-row-reverse navItem subnav">
-            <div class="p-2"><a href="#"> Contact</a></div>
-            <div class="p-2"><a href="#"> Project</a></div>
-            <div class="p-2"><a href="#"> About </a></div>
+        </header>
+
+        <div class="row greeting">
+          <div class="col-md-1">&nbsp;</div>
+          <div
+            class="col-md-5 title"
+            data-aos="fade-right"
+            data-aos-duration="2000"
+          >
+            <p><span id="hi">Hello!</span> I'm Long</p>
+            <h5 class="job">&#60;Software Developer&#62;</h5>
+            <div class="desc">
+              <p>
+                I'm a software engineer located in Ho Chi Minh city, Vietnam.
+                Study Computer Science at Ton Duc Thang University but i aim to
+                be an website/application developer and focus on full stack
+                developer.
+              </p>
+            </div>
+            <div class="button">
+              <a href="#"> Contact</a>
+            </div>
+          </div>
+          <div class="col-md-5 coverImg">
+            <img
+              data-aos="fade-left"
+              data-aos-duration="2000"
+              src="/assets/images/undraw_Programming_png.png"
+              alt="cover_image"
+            />
+          </div>
+          <div class="col-md-1">&nbsp;</div>
+          <div class="scroll_down">
+            <h4>Scroll down</h4>
+            <h4><i class="bi bi-caret-down"></i></h4>
           </div>
         </div>
-      </header>
-
-      <div class="row greeting">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-5 title"  data-aos="fade-right" data-aos-duration="2000">
-          <p><span id="hi">Hello!</span> I'm Long</p>
-          <h5 class="job">&#60;Software Developer&#62;</h5>
-          <div class="desc">
-            <p>
-              I'm a software engineer located in Ho Chi Minh city, Vietnam. Study Computer Science at Ton Duc Thang University
-              but i aim to be an website/application developer and focus on full stack developer.
-            </p>
-          </div>
-          <div class="button">
-            <a href="#"> Contact</a>
+      </div>
+      <div class="row Pagebreaks1"><h1>&nbsp;</h1></div>
+      <div class="row webdesign">
+        <div class="background_website_design"><h1>&nbsp;</h1></div>
+        <div
+          class="main_website_design"
+          data-aos-duration="800"
+          data-aos="fade-right"
+          data-aos-anchor-placement="top-center"
+        >
+          <h1>&nbsp;</h1>
+        </div>
+        <div
+          class="corner_website_design"
+          data-aos-duration="800"
+          data-aos="fade-left"
+          data-aos-anchor-placement="top-center"
+        >
+          <h1>&nbsp;</h1>
+        </div>
+        <div class="overlay"  data-aos-duration="800"
+        data-aos="zoom-in-up"
+        data-aos-anchor-placement="center-bottom">
+          <div class="row">
+            <center>
+            <div class="col-md-4 designText">
+              <p>
+                Even though i see myself as a <b> “coder” </b>but i also love learning
+                new web designing trend and try to implementing it into my own
+                project.
+              </p>
+              <!-- <p>
+                ‘IMO’ a beautiful front end will inspire back end to functioning
+              </p> -->
+            </div>
+          </center>
           </div>
         </div>
-        <div class="col-md-5 coverImg">
-          <img  data-aos="fade-left" data-aos-duration="2000"
-            src="/assets/images/undraw_Programming_re_kg9v 1.png"
-            alt="cover_image"
-          />
-        </div>
-        <div class="col-md-1">&nbsp;</div>
-        <div class="scroll_down">
-          <h4>Scroll down</h4>
-          <h4><i class="bi bi-caret-down"></i></h4>
-      </div>
       </div>
 
-      <div class="row webdesign" >
-        <h1>&nbsp;</h1>
-
-        <div class="background_website_design" data-aos="fade-up-right" data-aos-anchor-placement="top-bottom"><h1>&nbsp;</h1></div>
-        <div class="main_website_design" data-aos="fade-right" data-aos-easing="ease-in-sine"  data-aos-anchor-placement="top-center"><h1>&nbsp;</h1></div>
+      <div class="row myProject">
+       
       </div>
-      <div class="row myProject"></div>
       <div class="row contactEmail"></div>
     </div>
     <script>
-  AOS.init();
-</script>
+      AOS.init();
+    </script>
   </body>
 </html>
