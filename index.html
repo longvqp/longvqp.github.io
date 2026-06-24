@@ -1,137 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-    </style>
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Bootstrap Library -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
-    <title>Long Vũ - Portfolio</title>
-    <link type="text/css" rel="stylesheet" href="styles/index.css" />
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row landing">
-        <header>
-          <div class="row navbar">
-            <div class="col-md-2 d-flex flex-row navItem home">
-              <div class="p-2"><a href="#"> Home </a></div>
-            </div>
-            <div class="col-md-10 d-flex flex-row-reverse navItem subnav">
-              <div class="p-2"><a href="/contact.html"> Contact</a></div>
-              <div class="p-2"><a href="/projects.html"> Project</a></div>
-              <div class="p-2"><a href="/about.html"> About </a></div>
-            </div>
-          </div>
-        </header>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quang Phi Long Vu - Portfolio</title>
 
-        <div class="row greeting">
-          <div class="col-md-1">&nbsp;</div>
-          <div
-            class="col-md-5 title"
-            data-aos="fade-right"
-            data-aos-duration="2000"
-          >
-            <p><span id="hi">Hello!</span> I'm Long</p>
-            <h5 class="job">&#60;Software Developer&#62;</h5>
-            <div class="desc">
-              <p>
-                I'm a software engineer located in Ho Chi Minh city, Vietnam.
-                Study Computer Science at Ton Duc Thang University but i aim to
-                be an website/application developer and focus on full stack
-                developer.
-              </p>
-            </div>
-            <div class="button">
-              <a href="/contact.html"> Contact</a>
-            </div>
-          </div>
-          <div class="col-md-5 coverImg">
-            <img
-              data-aos="fade-left"
-              data-aos-duration="2000"
-              src="/assets/images/undraw_Programming_png.png"
-              alt="cover_image"
-            />
-          </div>
-          <div class="col-md-1">&nbsp;</div>
-          <div class="scroll_down">
-            <h4>Scroll down</h4>
-            <h4><i class="bi bi-caret-down"></i></h4>
-          </div>
-        </div>
-      </div>
-      <div class="row Pagebreaks1"><h1>&nbsp;</h1></div>
-      <div class="row webdesign">
-        <div class="background_website_design"><h1>&nbsp;</h1></div>
-        <div
-          class="main_website_design"
-          data-aos-duration="800"
-          data-aos="fade-right"
-          data-aos-anchor-placement="top-center"
-        >
-          <h1>&nbsp;</h1>
-        </div>
-        <div
-          class="corner_website_design"
-          data-aos-duration="800"
-          data-aos="fade-left"
-          data-aos-anchor-placement="top-center"
-        >
-          <h1>&nbsp;</h1>
-        </div>
-        <div class="overlay"  data-aos-duration="800"
-        data-aos="zoom-in-up"
-        data-aos-anchor-placement="center-bottom">
-          <div class="row">
-            <center>
-            <div class="col-md-4 designText">
-              <p>
-                Even though i see myself as a <b> “coder” </b>but i also love learning
-                new web designing trend and try to implementing it into my own
-                project.
-              </p>
-              <!-- <p>
-                ‘IMO’ a beautiful front end will inspire back end to functioning
-              </p> -->
-            </div>
-          </center>
-          </div>
-        </div>
-      </div>
-      <div class="row Pagebreaks2"><h1>&nbsp;</h1></div>
-      <div class="row staticHTML">
-        <h1>&nbsp;</h1>
-      </div>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #0f172a;
+    color: #f8fafc;
+    line-height: 1.6;
+}
 
-      <div class="row myProject">
-       
-      </div>
-      <div class="row contactEmail"></div>
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+header {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.hero {
+    text-align: center;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: #38bdf8;
+    color: #000;
+}
+
+.btn-secondary {
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.about {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+.skills-grid,
+.projects-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+.skill-list {
+    list-style: none;
+}
+
+.skill-list li {
+    padding: 6px 0;
+}
+
+.timeline {
+    max-width: 800px;
+    margin: auto;
+}
+
+.timeline-item {
+    background: #1e293b;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-left: 4px solid #38bdf8;
+}
+
+.contact {
+    text-align: center;
+}
+
+.contact a {
+    color: #38bdf8;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #94a3b8;
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:2.5rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container hero">
+        <h1>Quang Phi Long Vu</h1>
+        <p>ServiceNow Developer | Integration Engineer | Python Enthusiast</p>
+
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Contact Me</a>
     </div>
-    <script>
-      AOS.init();
-    </script>
-  </body>
+</header>
+
+<section id="about">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+
+        <div class="about">
+            <p>
+                I am a ServiceNow Developer with experience in ITSM, HRSD,
+                CMDB, Service Portal, IntegrationHub, MID Server management,
+                REST APIs, and enterprise integrations. I also work with
+                Python and Machine Learning projects.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="skills">
+    <div class="container">
+        <h2 class="section-title">Skills</h2>
+
+        <div class="skills-grid">
+
+            <div class="card">
+                <h3>ServiceNow</h3>
+                <ul class="skill-list">
+                    <li>ITSM</li>
+                    <li>HRSD</li>
+                    <li>CMDB</li>
+                    <li>Flow Designer</li>
+                    <li>IntegrationHub</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Programming</h3>
+                <ul class="skill-list">
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>SQL</li>
+                    <li>HTML/CSS</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Tools</h3>
+                <ul class="skill-list">
+                    <li>Git</li>
+                    <li>Linux</li>
+                    <li>Azure AD</li>
+                    <li>REST APIs</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+
+        <div class="projects-grid">
+
+            <div class="card">
+                <h3>User Preference Widget</h3>
+                <p>
+                    Developed a Service Portal widget with toggle controls
+                    for notification preferences using User Preferences API.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>MID Server Deployment</h3>
+                <p>
+                    Configured and monitored MID Servers for discovery,
+                    integrations, and enterprise connectivity.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Botnet Detection ML</h3>
+                <p>
+                    Machine learning project using Random Forest,
+                    KNN and Bayesian Model Averaging.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="experience">
+    <div class="container">
+        <h2 class="section-title">Experience</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>2026</h3>
+                <p>
+                    ServiceNow administration, upgrades, integrations
+                    and CMDB support.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2025</h3>
+                <p>
+                    Built Service Portal widgets and enterprise integrations.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2024</h3>
+                <p>
+                    Focused on HRSD development and workflow automation.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container contact">
+        <h2 class="section-title">Contact</h2>
+
+        <p>Email: your.email@example.com</p>
+        <br>
+
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Resume</a>
+    </div>
+</section>
+
+<footer>
+    © 2026 Quang Phi Long Vu. All Rights Reserved.
+</footer>
+
+</body>
 </html>
