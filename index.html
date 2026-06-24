@@ -99,15 +99,18 @@
         radial-gradient(ellipse 60% 55% at 10% 5%, rgba(129, 180, 65, .07) 0%, transparent 70%),
         radial-gradient(ellipse 40% 40% at 90% 80%, rgba(129, 180, 65, .05) 0%, transparent 60%);
     }
+
     html.light .bg-grid {
       background-image: linear-gradient(rgba(129, 180, 65, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 180, 65, .08) 1px, transparent 1px);
       background-size: 60px 60px;
     }
+
     html.light .bg-scan {
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, .03) 2px, rgba(0, 0, 0, .03) 4px);
     }
+
     html.light .hero h1 {
-      background: linear-gradient(135deg, #1a1a1a 30%, #5a8020 70%, var(--green));
+      background: linear-gradient(135deg, #1a1a1a 0%, #4a7010 50%, var(--green) 100%);
       -webkit-background-clip: text;
       background-clip: text;
     }
@@ -130,9 +133,10 @@
       align-items: center;
       justify-content: center;
       transition: all .2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
       backdrop-filter: blur(12px);
     }
+
     .theme-toggle:hover {
       border-color: var(--green);
       color: var(--green);
@@ -300,7 +304,7 @@
     .hero {
       text-align: center;
       flex-direction: column;
-   
+
     }
 
     .hero-inner {
@@ -395,21 +399,26 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5.5vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -.03em;
-      line-height: 1.05;
-      background: linear-gradient(135deg, #fff 30%, #a8c97a 70%, var(--green));
+      font-size: clamp(3rem, 4vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      margin-top: 20px;
+      margin-bottom: 4px;
+      background: linear-gradient(90deg, #ffffff 0%, #c8e08a 50%, #81B441 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-typing {
       font-family: var(--mono);
-      font-size: clamp(.85rem, 1.8vw, 1.1rem);
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
       color: var(--green);
-      margin: 14px 0;
+      margin: 18px 0;
       min-height: 1.5rem
     }
 
@@ -437,9 +446,9 @@
 
     .hero-sub {
       color: var(--muted);
-      font-size: .88rem;
-      max-width: 560px;
-      margin: 0 auto 20px;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 24px;
       line-height: 1.75
     }
 
@@ -621,9 +630,34 @@
       gap: 12px
     }
 
-    @media(max-width:700px) {
+ @media(max-width:700px) {
+      html {
+        scroll-snap-type: none;
+      }
+      section {
+        scroll-snap-align: none;
+        height: auto;
+        min-height: 100vh;
+      }
       .skills-grid {
-        grid-template-columns: 1fr 1fr
+        grid-template-columns: 1fr 1fr;
+        gap: 8px
+      }
+      .skill-card {
+        padding: 12px
+      }
+      .skill-icon {
+        font-size: .9rem;
+        margin-bottom: 4px
+      }
+      .skill-card h3 {
+        font-size: .75rem;
+        margin-bottom: 3px
+      }
+      .skill-card p {
+        font-size: .68rem;
+        margin-bottom: 6px;
+        line-height: 1.45
       }
     }
 
@@ -984,7 +1018,7 @@
   </div>
 
   <!-- ── HERO ── -->
-  <section id="hero">
+  <section id="hero" class="hero">
     <div class="hero-inner">
       <div class="platform-ring">
         <div class="ring ring-1">
@@ -998,8 +1032,8 @@
         <div class="ring-center">SN<br>DEV</div>
       </div>
       <p class="hero-eyebrow">ServiceNow &middot; CSA &middot; CAD Certified</p>
-      <h1>VU <br>
-        QUANG PHI LONG</h1>
+      <h1>LONG VU</h1>
+      <p class="hero-sub"> Vu Quang Phi Long</p>
       <div class="hero-typing"><span id="typing"></span><span class="cursor"></span></div>
       <p class="hero-sub">Enterprise ServiceNow developer specialising in ITSM, HRSD, integrations, MID Servers, and
         Agile platform delivery.</p>
@@ -1249,7 +1283,8 @@
           <a href="tel:+84839646732">(+84) 839 646 732</a>
         </p>
         <div class="contact-btns">
-          <a href="https://www.linkedin.com/in/quang-phi-long-v%C5%A9-a55b92221/" target="_blank" class="contact-btn">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/quang-phi-long-v%C5%A9-a55b92221/" target="_blank"
+            class="contact-btn">LinkedIn</a>
           <a href="mailto:vuquangphilong@gmail.com" class="contact-btn">Email Me</a>
         </div>
         <p class="footer-inline">// longvu &mdash; ServiceNow Developer &mdash; Vietnam &mdash; 2026</p>
@@ -1282,7 +1317,7 @@
     window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
 
     /* ── Typing effect ── */
-    const words = ["ServiceNow Developer", "Sustain Technical Lead", "Integration Engineer", "Platform Engineer", "Workflow Automation Specialist"];
+    const words = ["ServiceNow Developer", "Integration Engineer", "Platform Engineer", "Workflow Automation Specialist"];
     let wi = 0, ci = 0, del = false;
     function type() {
       const cur = words[wi], el = document.getElementById('typing');
