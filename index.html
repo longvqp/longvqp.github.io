@@ -1,706 +1,1105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quang Phi Long Vu | ServiceNow Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --sn-green: #81B441;
-  --sn-green-dim: rgba(129,180,65,.15);
-  --bg: #111111;
-  --card: #1a1a1a;
-  --card-border: #2a2a2a;
-  --text: #ffffff;
-  --muted: #9a9a9a;
-  --mono: 'JetBrains Mono', monospace;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quang Phi Long Vu | ServiceNow Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green: #81B441;
+      --green-dim: rgba(129, 180, 65, .15);
+      --green-glow: rgba(129, 180, 65, .35);
+      --bg: #0d0d0d;
+      --card: #161616;
+      --card2: #1c1c1c;
+      --border: #252525;
+      --text: #f0f0f0;
+      --muted: #888;
+      --mono: 'JetBrains Mono', monospace;
+    }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-}
+    html {
+      scroll-behavior: smooth
+    }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 15% 15%, rgba(129,180,65,.10), transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(129,180,65,.06), transparent 35%);
-  pointer-events: none;
-  z-index: 0;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden
+    }
 
-/* ── Nav ── */
-nav {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 999;
-  backdrop-filter: blur(14px);
-  background: rgba(0,0,0,.55);
-  border-bottom: 1px solid #1e1e1e;
-}
-.nav-container {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 24px;
-}
-.logo {
-  font-family: var(--mono);
-  color: var(--sn-green);
-  font-weight: 600;
-  font-size: .95rem;
-  letter-spacing: .04em;
-}
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  margin-left: 28px;
-  font-size: .875rem;
-  transition: color .2s;
-}
-.nav-links a:hover { color: #fff; }
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none
+    }
 
-/* ── Hero ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 100px 24px 60px;
-  position: relative;
-}
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: .8rem;
-  color: var(--sn-green);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.hero h1 {
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  font-weight: 700;
-  letter-spacing: -.02em;
-  line-height: 1.1;
-}
-.hero-typing {
-  font-family: var(--mono);
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--sn-green);
-  margin: 22px 0;
-  min-height: 2rem;
-}
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.1em;
-  background: var(--sn-green);
-  vertical-align: middle;
-  margin-left: 3px;
-  animation: blink .8s step-end infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 55% at 10% 5%, rgba(129, 180, 65, .13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(129, 180, 65, .09) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 50% 50%, rgba(129, 180, 65, .04) 0%, transparent 70%);
+    }
 
-.hero-sub {
-  max-width: 620px;
-  margin: 0 auto 36px;
-  color: var(--muted);
-  font-size: .95rem;
-}
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 36px;
-}
-.badge {
-  font-family: var(--mono);
-  font-size: .72rem;
-  padding: 5px 12px;
-  border: 1px solid var(--sn-green);
-  border-radius: 4px;
-  color: var(--sn-green);
-  background: var(--sn-green-dim);
-  letter-spacing: .05em;
-}
-.btn {
-  display: inline-block;
-  padding: 13px 28px;
-  border-radius: 7px;
-  background: var(--sn-green);
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: .9rem;
-  transition: opacity .2s, transform .2s;
-}
-.btn:hover { opacity: .88; transform: translateY(-2px); }
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(129, 180, 65, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 180, 65, .04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
 
-/* ── Section base ── */
-section { padding: 100px 24px; }
-.container { max-width: 1100px; margin: auto; }
-.section-title {
-  text-align: center;
-  margin-bottom: 56px;
-  color: var(--sn-green);
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -.01em;
-}
-.section-label {
-  display: block;
-  font-family: var(--mono);
-  font-size: .72rem;
-  color: var(--muted);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 8px;
-}
+    .bg-scan {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, .07) 2px, rgba(0, 0, 0, .07) 4px);
+    }
 
-/* ── About ── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-@media(max-width:680px){ .about-grid{ grid-template-columns:1fr; } }
-.about-text p { color: var(--muted); margin-bottom: 16px; font-size: .95rem; }
-.about-text strong { color: var(--text); }
-.about-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.stat-card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-}
-.stat-num {
-  font-family: var(--mono);
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--sn-green);
-  line-height: 1;
-}
-.stat-label {
-  font-size: .78rem;
-  color: var(--muted);
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
+    section,
+    nav,
+    footer {
+      position: relative;
+      z-index: 10
+    }
 
-/* ── Skills ── */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 18px; }
-.card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
-  padding: 24px;
-  transition: transform .25s, border-color .25s, box-shadow .25s;
-}
-.card:hover {
-  transform: translateY(-6px);
-  border-color: var(--sn-green);
-  box-shadow: 0 0 28px rgba(129,180,65,.18);
-}
-.card-icon {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-}
-.card h3 {
-  color: var(--sn-green);
-  font-size: 1rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.card p { color: var(--muted); font-size: .875rem; line-height: 1.6; }
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
-}
-.tag {
-  font-family: var(--mono);
-  font-size: .68rem;
-  padding: 3px 8px;
-  background: rgba(129,180,65,.1);
-  border: 1px solid rgba(129,180,65,.25);
-  border-radius: 3px;
-  color: var(--sn-green);
-}
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(18px) saturate(1.4);
+      background: rgba(10, 10, 10, .7);
+      border-bottom: 1px solid rgba(129, 180, 65, .15);
+    }
 
-/* ── Timeline ── */
-.timeline { position: relative; padding-left: 28px; }
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--sn-green), transparent);
-}
-.timeline-item {
-  position: relative;
-  margin-bottom: 44px;
-}
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -34px;
-  top: 8px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--sn-green);
-  box-shadow: 0 0 10px rgba(129,180,65,.5);
-}
-.timeline-year {
-  font-family: var(--mono);
-  font-size: .78rem;
-  color: var(--sn-green);
-  letter-spacing: .08em;
-  margin-bottom: 4px;
-}
-.timeline-item h4 {
-  color: var(--text);
-  font-size: 1.05rem;
-  margin-bottom: 4px;
-}
-.timeline-item .company {
-  font-size: .82rem;
-  color: var(--muted);
-  margin-bottom: 10px;
-  font-style: italic;
-}
-.timeline-item ul {
-  list-style: none;
-  padding: 0;
-}
-.timeline-item ul li {
-  color: var(--muted);
-  font-size: .875rem;
-  padding: 3px 0 3px 16px;
-  position: relative;
-}
-.timeline-item ul li::before {
-  content: "›";
-  position: absolute;
-  left: 0;
-  color: var(--sn-green);
-}
+    .nav-container {
+      max-width: 1120px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px
+    }
 
-/* ── Certs ── */
-.certs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 18px;
-}
-.cert-card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 22px 20px;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  transition: border-color .25s;
-}
-.cert-card:hover { border-color: var(--sn-green); }
-.cert-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--sn-green-dim);
-  border: 1px solid rgba(129,180,65,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-.cert-info h4 { font-size: .9rem; color: var(--text); margin-bottom: 3px; }
-.cert-info p { font-size: .78rem; color: var(--muted); }
+    .logo {
+      font-family: var(--mono);
+      color: var(--green);
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .05em;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
 
-/* ── Contact ── */
-.contact-center { text-align: center; }
-.contact-center p { color: var(--muted); margin-bottom: 8px; }
-.contact-center a {
-  color: var(--sn-green);
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity .2s;
-}
-.contact-center a:hover { opacity: .75; }
-.contact-links {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 28px;
-  flex-wrap: wrap;
-}
-.contact-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: .875rem;
-  transition: border-color .2s, background .2s;
-}
-.contact-link-btn:hover {
-  border-color: var(--sn-green);
-  background: var(--sn-green-dim);
-}
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+      animation: pulse 2s ease-in-out infinite
+    }
 
-/* ── Reveal animation ── */
-.hidden { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
-.show { opacity: 1; transform: translateY(0); }
+    @keyframes pulse {
 
-/* ── Footer ── */
-footer {
-  text-align: center;
-  padding: 32px 24px;
-  color: #444;
-  font-size: .78rem;
-  font-family: var(--mono);
-  border-top: 1px solid #1e1e1e;
-}
-</style>
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .5;
+        transform: scale(.85)
+      }
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 28px;
+      font-size: .83rem;
+      letter-spacing: .03em;
+      transition: color .2s
+    }
+
+    .nav-links a:hover {
+      color: var(--green)
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 28px 80px
+    }
+
+    .hero-inner {
+      max-width: 800px;
+      margin: auto
+    }
+
+    .platform-ring {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 48px
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(129, 180, 65, .2);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .ring-1 {
+      width: 220px;
+      height: 220px;
+      animation: spin 30s linear infinite
+    }
+
+    .ring-2 {
+      width: 160px;
+      height: 160px;
+      animation: spin 20s linear infinite reverse
+    }
+
+    .ring-3 {
+      width: 100px;
+      height: 100px;
+      border-color: rgba(129, 180, 65, .4)
+    }
+
+    .ring-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(129, 180, 65, .3), rgba(129, 180, 65, .1));
+      border: 1px solid rgba(129, 180, 65, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--green);
+      font-weight: 600;
+      letter-spacing: .04em;
+      box-shadow: 0 0 20px rgba(129, 180, 65, .25);
+    }
+
+    .ring-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green)
+    }
+
+    @keyframes spin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg)
+      }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--green);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding: 6px 16px;
+      border: 1px solid rgba(129, 180, 65, .3);
+      border-radius: 4px;
+      background: rgba(129, 180, 65, .06);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #fff 30%, #a8c97a 70%, var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-typing {
+      font-family: var(--mono);
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      color: var(--green);
+      margin: 22px 0;
+      min-height: 1.8rem
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--green);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink .75s step-end infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0
+      }
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.8
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px
+    }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: .68rem;
+      padding: 5px 12px;
+      border: 1px solid rgba(129, 180, 65, .3);
+      border-radius: 3px;
+      color: var(--green);
+      background: rgba(129, 180, 65, .07);
+      letter-spacing: .06em
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 6px;
+      background: var(--green);
+      color: #000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .02em;
+      transition: all .2s;
+      box-shadow: 0 0 24px rgba(129, 180, 65, .3);
+    }
+
+    .btn:hover {
+      opacity: .9;
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(129, 180, 65, .45)
+    }
+
+    section {
+      padding: 110px 28px
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: auto
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 8px
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--text);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -.02em
+    }
+
+    .section-title span {
+      color: var(--green)
+    }
+
+    .accent-line {
+      width: 60px;
+      height: 2px;
+      background: var(--green);
+      margin: 0 auto 56px;
+      border-radius: 1px;
+      box-shadow: 0 0 12px var(--green)
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    @media(max-width:700px) {
+      .about-layout {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: .93rem;
+      line-height: 1.8
+    }
+
+    .about-text strong {
+      color: var(--text)
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      transition: border-color .25s, box-shadow .25s
+    }
+
+    .stat-card:hover {
+      border-color: rgba(129, 180, 65, .4);
+      box-shadow: 0 0 20px rgba(129, 180, 65, .1)
+    }
+
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: .07em
+    }
+
+    .sn-platform {
+      margin: 0 auto 60px;
+      max-width: 800px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center
+    }
+
+    .sn-platform-title {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 24px
+    }
+
+    .sn-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width:600px) {
+      .sn-modules {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .sn-mod {
+      padding: 14px 8px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--muted);
+      background: var(--card2);
+      letter-spacing: .05em;
+      transition: all .25s;
+      cursor: default
+    }
+
+    .sn-mod:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(129, 180, 65, .06);
+      box-shadow: 0 0 16px rgba(129, 180, 65, .15)
+    }
+
+    .sn-mod-icon {
+      font-size: 1.2rem;
+      margin-bottom: 6px
+    }
+
+    .sn-core {
+      grid-column: 2/4;
+      background: linear-gradient(135deg, rgba(129, 180, 65, .12), rgba(129, 180, 65, .05));
+      border-color: rgba(129, 180, 65, .35);
+      color: var(--green);
+      box-shadow: 0 0 24px rgba(129, 180, 65, .12)
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .skill-card:hover::before {
+      opacity: 1
+    }
+
+    .skill-card:hover {
+      border-color: rgba(129, 180, 65, .3);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .3), 0 0 20px rgba(129, 180, 65, .1)
+    }
+
+    .skill-icon {
+      font-size: 1.3rem;
+      margin-bottom: 12px
+    }
+
+    .skill-card h3 {
+      color: var(--green);
+      font-size: .95rem;
+      margin-bottom: 8px;
+      font-weight: 600
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      font-size: .83rem;
+      line-height: 1.6;
+      margin-bottom: 14px
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: .63rem;
+      padding: 3px 9px;
+      background: rgba(129, 180, 65, .08);
+      border: 1px solid rgba(129, 180, 65, .2);
+      border-radius: 3px;
+      color: rgba(129, 180, 65, .85)
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 30px
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green) 0%, rgba(129, 180, 65, .05) 100%)
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 44px
+    }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -36px;
+      top: 9px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green-glow)
+    }
+
+    .tl-year {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--green);
+      letter-spacing: .08em;
+      margin-bottom: 3px
+    }
+
+    .tl-title {
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 2px
+    }
+
+    .tl-company {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-style: italic
+    }
+
+    .tl-list {
+      list-style: none;
+      padding: 0
+    }
+
+    .tl-list li {
+      color: var(--muted);
+      font-size: .86rem;
+      padding: 3px 0 3px 16px;
+      position: relative;
+      line-height: 1.6
+    }
+
+    .tl-list li::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: var(--green)
+    }
+
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px
+    }
+
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: border-color .25s, box-shadow .25s
+    }
+
+    .cert-card:hover {
+      border-color: rgba(129, 180, 65, .35);
+      box-shadow: 0 0 20px rgba(129, 180, 65, .1)
+    }
+
+    .cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: rgba(129, 180, 65, .1);
+      border: 1px solid rgba(129, 180, 65, .25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem
+    }
+
+    .cert-info h4 {
+      font-size: .9rem;
+      color: var(--text);
+      margin-bottom: 3px;
+      font-weight: 600
+    }
+
+    .cert-info p {
+      font-size: .76rem;
+      color: var(--muted)
+    }
+
+    .contact-wrap {
+      text-align: center;
+      max-width: 600px;
+      margin: auto
+    }
+
+    .contact-wrap p {
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: .93rem
+    }
+
+    .contact-wrap a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600
+    }
+
+    .contact-wrap a:hover {
+      opacity: .75
+    }
+
+    .contact-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .86rem;
+      transition: all .25s;
+      background: var(--card)
+    }
+
+    .contact-btn:hover {
+      border-color: var(--green);
+      background: rgba(129, 180, 65, .08);
+      color: var(--green)
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .show {
+      opacity: 1;
+      transform: none
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      color: #333;
+      font-size: .72rem;
+      font-family: var(--mono);
+      border-top: 1px solid #1a1a1a
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-container">
-    <div class="logo">// LONGVU</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#certs">Certs</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</nav>
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-scan"></div>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div>
-    <p class="hero-eyebrow">ServiceNow · CSA · CAD Certified</p>
-    <h1>Quang Phi Long Vu</h1>
-    <div class="hero-typing"><span id="typing"></span><span class="cursor"></span></div>
-    <p class="hero-sub">
-      Enterprise ServiceNow developer specialising in ITSM, HRSD, integrations,
-      MID Servers, and Agile platform delivery. Based in Vietnam.
-    </p>
-    <div class="hero-badges">
-      <span class="badge">ITSM</span>
-      <span class="badge">HRSD</span>
-      <span class="badge">CMDB</span>
-      <span class="badge">IntegrationHub</span>
-      <span class="badge">Flow Designer</span>
-      <span class="badge">MID Servers</span>
-      <span class="badge">CI/CD</span>
-      <span class="badge">Scrum</span>
+  <nav>
+    <div class="nav-container">
+      <div class="logo"><span class="logo-dot"></span>LONGVU.dev</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#certs">Certs</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
-    <a href="#experience" class="btn">View Experience</a>
-  </div>
-</section>
+  </nav>
 
-<!-- ── ABOUT ── -->
-<section id="about" class="hidden">
-  <div class="container">
-    <span class="section-label">Background</span>
-    <h2 class="section-title">About Me</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I'm a ServiceNow Developer at <strong>DXC Technology Vietnam</strong>, where I started as an intern in 2023
-          and progressed to <strong>Sustain Technical Lead</strong> on the Nestlé ITSM project — overseeing a team of developers,
-          managing the incident queue end-to-end, and driving platform stability.
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="platform-ring">
+        <div class="ring ring-1">
+          <div class="ring-dot" style="top:0;left:50%;transform:translateX(-50%) translateY(-4px)"></div>
+          <div class="ring-dot" style="bottom:0;left:50%;transform:translateX(-50%) translateY(4px)"></div>
+        </div>
+        <div class="ring ring-2">
+          <div class="ring-dot" style="top:50%;right:0;transform:translateY(-50%) translateX(4px)"></div>
+        </div>
+        <div class="ring ring-3"></div>
+        <div class="ring-center">SN<br>DEV</div>
+      </div>
+      <p class="hero-eyebrow">ServiceNow &middot; CSA &middot; CAD Certified</p>
+      <h1>Quang Phi Long Vu</h1>
+      <div class="hero-typing"><span id="typing"></span><span class="cursor"></span></div>
+      <p class="hero-sub">Enterprise ServiceNow developer specialising in ITSM, HRSD, integrations, MID Servers, and
+        Agile platform delivery.</p>
+      <div class="hero-badges">
+        <span class="badge">ITSM</span><span class="badge">HRSD</span><span class="badge">CMDB</span>
+        <span class="badge">IntegrationHub</span><span class="badge">Flow Designer</span>
+        <span class="badge">MID Servers</span><span class="badge">CI/CD</span><span class="badge">Scrum</span>
+      </div>
+      <a href="#experience" class="btn">View Experience &rarr;</a>
+    </div>
+  </section>
+
+  <section id="about" class="hidden">
+    <div class="container">
+      <span class="section-eyebrow">Background</span>
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="accent-line"></div>
+      <div class="sn-platform">
+        <div class="sn-platform-title">ServiceNow Platform &mdash; Module Coverage</div>
+        <div class="sn-modules">
+          <div class="sn-mod">
+            <div class="sn-mod-icon">🎫</div>ITSM
+          </div>
+          <div class="sn-mod sn-core">
+            <div class="sn-mod-icon">⬡</div>ServiceNow Core Platform
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">👥</div>HRSD
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">🗄️</div>CMDB
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">⚙️</div>Flow Designer
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">🔌</div>IntegrationHub
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">🖥️</div>MID Servers
+          </div>
+          <div class="sn-mod">
+            <div class="sn-mod-icon">🌐</div>Service Portal
+          </div>
+        </div>
+      </div>
+      <div class="about-layout">
+        <div class="about-text">
+          <p>I'm a ServiceNow Developer at <strong>DXC Technology Vietnam</strong>, where I started as an intern in 2023
+            and progressed to <strong>Sustain Technical Lead</strong> on the Nestlé ITSM project — overseeing a team of
+            developers, managing the incident queue end-to-end, and driving platform stability.</p>
+          <p>I hold both <strong>ServiceNow CSA</strong> and <strong>CAD</strong> certifications, and graduated from
+            <strong>Ton Duc Thang University</strong> with a BSc in Computer Science (2024).</p>
+          <p>My background spans Java microservices, full SDLC delivery, and CI/CD practices. English: IELTS 7.0
+            &middot; TOEIC R&amp;W 945.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years in ServiceNow</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2</div>
+            <div class="stat-label">SN Certifications</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">7.0</div>
+            <div class="stat-label">IELTS Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">TL</div>
+            <div class="stat-label">Tech Lead Role</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="hidden">
+    <div class="container">
+      <span class="section-eyebrow">What I work with</span>
+      <h2 class="section-title">Core <span>Skills</span></h2>
+      <div class="accent-line"></div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🏗️</div>
+          <h3>Platform Development</h3>
+          <p>End-to-end ServiceNow engineering across enterprise modules.</p>
+          <div class="tags"><span class="tag">ITSM</span><span class="tag">HRSD</span><span class="tag">CMDB</span><span
+              class="tag">Service Portal</span><span class="tag">Script Includes</span></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">⚙️</div>
+          <h3>Automation &amp; Integration</h3>
+          <p>Scalable workflows and enterprise-grade integrations including Azure OAuth.</p>
+          <div class="tags"><span class="tag">Flow Designer</span><span class="tag">IntegrationHub</span><span
+              class="tag">Azure OAuth</span><span class="tag">REST APIs</span></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🖥️</div>
+          <h3>Infrastructure</h3>
+          <p>Deployment, configuration, and troubleshooting of distributed MID environments.</p>
+          <div class="tags"><span class="tag">MID Servers</span><span class="tag">Discovery</span><span
+              class="tag">Cloud Integrations</span></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🔄</div>
+          <h3>Delivery &amp; Process</h3>
+          <p>Agile delivery, CI/CD pipelines, and full SDLC management on Nestle ITSM.</p>
+          <div class="tags"><span class="tag">Scrum</span><span class="tag">CI/CD</span><span
+              class="tag">SDLC</span><span class="tag">UAT</span><span class="tag">Code Review</span></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">💻</div>
+          <h3>Languages &amp; Tech</h3>
+          <p>Scripting, backend, and frontend development skills.</p>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag">Python</span><span
+              class="tag">SQL</span><span class="tag">Java</span><span class="tag">AngularJS</span><span
+              class="tag">HTML/CSS</span></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">👥</div>
+          <h3>Leadership</h3>
+          <p>Leading developer teams, incident triage, runbook authoring, and technical mentoring.</p>
+          <div class="tags"><span class="tag">Tech Lead</span><span class="tag">Incident Mgmt</span><span
+              class="tag">Runbooks</span><span class="tag">Mentoring</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="hidden">
+    <div class="container">
+      <span class="section-eyebrow">Career</span>
+      <h2 class="section-title">Work <span>Experience</span></h2>
+      <div class="accent-line"></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">08/2023 &ndash; Present</div>
+          <div class="tl-title">ServiceNow Developer &rarr; Sustain Technical Lead</div>
+          <div class="tl-company">DXC Technology Vietnam &mdash; Nestle ITSM Project</div>
+          <ul class="tl-list">
+            <li>Progressed from developer to Technical Lead, overseeing a team managing the ITSM incident queue.</li>
+            <li>Enforced best practices through technical reviews, code quality standards, and developer guidance.</li>
+            <li>Managed end-to-end incident triage and prioritisation to ensure minimal service disruption for Nestle.
+            </li>
+            <li>Authored internal runbooks defining structured incident diagnosis and escalation procedures.</li>
+            <li>Delivered user stories and Scrum tasks within an Agile framework across full SDLC cycles.</li>
+            <li>Applied CI/CD practices &mdash; automated testing and controlled change promotion across dev, UAT, and
+              prod.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">06/2023 &ndash; 08/2023</div>
+          <div class="tl-title">ServiceNow DECP Intern</div>
+          <div class="tl-company">DXC Technology Vietnam</div>
+          <ul class="tl-list">
+            <li>Completed structured training on the ServiceNow Platform and ITSM processes.</li>
+            <li>Built familiarity with development workflows, platform administration, and ITSM best practices.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">03/2023 &ndash; 06/2023</div>
+          <div class="tl-title">Java / MicroService Intern &mdash; The Rookies Program</div>
+          <div class="tl-company">NashTech Vietnam</div>
+          <ul class="tl-list">
+            <li>Intensive talent program focused on Java Spring Boot and MicroService architecture.</li>
+            <li>Built RESTful services and applied microservices design patterns hands-on.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">08/2020 &ndash; 09/2024</div>
+          <div class="tl-title">BSc in Computer Science</div>
+          <div class="tl-company">Ton Duc Thang University &mdash; HCMC, Vietnam &middot; CGPA 7.34/10.0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certs" class="hidden">
+    <div class="container">
+      <span class="section-eyebrow">Credentials</span>
+      <h2 class="section-title">Certifications</h2>
+      <div class="accent-line"></div>
+      <div class="certs-grid">
+        <div class="cert-card">
+          <div class="cert-icon">🎓</div>
+          <div class="cert-info">
+            <h4>ServiceNow CSA</h4>
+            <p>Certified System Administrator</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🛠️</div>
+          <div class="cert-info">
+            <h4>ServiceNow CAD</h4>
+            <p>Certified Application Developer</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">☁️</div>
+          <div class="cert-info">
+            <h4>Microsoft Azure AI-900</h4>
+            <p>Azure AI Fundamentals</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🌐</div>
+          <div class="cert-info">
+            <h4>IELTS 7.0 &middot; TOEIC 945</h4>
+            <p>English &mdash; Professional Proficiency</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="hidden">
+    <div class="container">
+      <span class="section-eyebrow">Get in touch</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="accent-line"></div>
+      <div class="contact-wrap">
+        <p>Open to new opportunities, collaborations, and ServiceNow conversations.</p>
+        <p style="margin-top:12px">
+          📧 <a href="mailto:vuquangphilong@gmail.com">vuquangphilong@gmail.com</a>
+          &nbsp;&middot;&nbsp;
+          📞 <a href="tel:+84839646732">(+84) 839 646 732</a>
         </p>
-        <p>
-          I hold both <strong>ServiceNow CSA</strong> and <strong>CAD</strong> certifications, and I graduated from
-          <strong>Ton Duc Thang University</strong> with a BSc in Computer Science (2024). I'm also proficient in English —
-          IELTS 7.0 and TOEIC R&W 945.
-        </p>
-        <p>
-          My background spans Java microservices, full SDLC delivery, and CI/CD practices within the ServiceNow pipeline —
-          from requirements through dev, UAT, and production.
-        </p>
-      </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="stat-num">3+</div>
-          <div class="stat-label">Years in ServiceNow</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">2</div>
-          <div class="stat-label">SN Certifications</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">7.0</div>
-          <div class="stat-label">IELTS Score</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">TL</div>
-          <div class="stat-label">Tech Lead Role</div>
+        <div class="contact-btns">
+          <a href="https://www.linkedin.com/in/quang-phi-long-vu" target="_blank" class="contact-btn">💼 LinkedIn</a>
+          <a href="mailto:vuquangphilong@gmail.com" class="contact-btn">✉️ Email Me</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── SKILLS ── -->
-<section id="skills" class="hidden">
-  <div class="container">
-    <span class="section-label">What I work with</span>
-    <h2 class="section-title">Core Skills</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon">🏗️</div>
-        <h3>Platform Development</h3>
-        <p>End-to-end ServiceNow platform engineering across multiple modules.</p>
-        <div class="tag-list">
-          <span class="tag">ITSM</span>
-          <span class="tag">HRSD</span>
-          <span class="tag">CMDB</span>
-          <span class="tag">Service Portal</span>
-          <span class="tag">Script Includes</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">⚙️</div>
-        <h3>Automation & Integration</h3>
-        <p>Building scalable workflows and enterprise-grade integrations.</p>
-        <div class="tag-list">
-          <span class="tag">Flow Designer</span>
-          <span class="tag">IntegrationHub</span>
-          <span class="tag">Azure OAuth</span>
-          <span class="tag">REST APIs</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🖥️</div>
-        <h3>Infrastructure</h3>
-        <p>Deployment, configuration, and troubleshooting of distributed environments.</p>
-        <div class="tag-list">
-          <span class="tag">MID Servers</span>
-          <span class="tag">Discovery</span>
-          <span class="tag">Cloud Integrations</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🔄</div>
-        <h3>Delivery & Process</h3>
-        <p>Agile delivery, CI/CD pipelines, and full SDLC management.</p>
-        <div class="tag-list">
-          <span class="tag">Scrum</span>
-          <span class="tag">CI/CD</span>
-          <span class="tag">SDLC</span>
-          <span class="tag">UAT</span>
-          <span class="tag">Code Review</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">💻</div>
-        <h3>Languages & Tech</h3>
-        <p>Development skills across scripting, backend, and frontend.</p>
-        <div class="tag-list">
-          <span class="tag">JavaScript</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Java</span>
-          <span class="tag">AngularJS</span>
-          <span class="tag">HTML/CSS</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">👥</div>
-        <h3>Leadership</h3>
-        <p>Leading developer teams, incident triage, runbooks, and technical mentoring.</p>
-        <div class="tag-list">
-          <span class="tag">Tech Lead</span>
-          <span class="tag">Incident Mgmt</span>
-          <span class="tag">Runbooks</span>
-          <span class="tag">Mentoring</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <footer>// longvu.dev &mdash; ServiceNow Developer &mdash; Vietnam &mdash; 2026</footer>
 
-<!-- ── EXPERIENCE ── -->
-<section id="experience" class="hidden">
-  <div class="container">
-    <span class="section-label">Career</span>
-    <h2 class="section-title">Experience</h2>
-    <div class="timeline">
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, nodes = [], animId;
+    const G = 'rgba(129,180,65,';
+    const N = 55, MD = 160;
 
-      <div class="timeline-item">
-        <div class="timeline-year">08/2023 – Present</div>
-        <h4>ServiceNow Developer → Sustain Technical Lead</h4>
-        <div class="company">DXC Technology Vietnam — Nestlé ITSM Project</div>
-        <ul>
-          <li>Progressed from developer to Technical Lead, overseeing a team managing the ITSM incident queue.</li>
-          <li>Enforced best practices through technical reviews, code quality standards, and developer guidance.</li>
-          <li>Managed end-to-end incident triage and prioritisation to ensure minimal service disruption for Nestlé.</li>
-          <li>Authored internal runbooks defining structured incident diagnosis and escalation procedures.</li>
-          <li>Delivered user stories and Scrum tasks within an Agile framework across full SDLC cycles.</li>
-          <li>Applied CI/CD practices — automated testing and controlled change promotion across dev, UAT, and prod.</li>
-        </ul>
-      </div>
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
 
-      <div class="timeline-item">
-        <div class="timeline-year">06/2023 – 08/2023</div>
-        <h4>ServiceNow DECP Intern</h4>
-        <div class="company">DXC Technology Vietnam</div>
-        <ul>
-          <li>Completed structured training on the ServiceNow Platform and ITSM processes.</li>
-          <li>Built familiarity with development workflows, platform administration, and ITSM best practices.</li>
-        </ul>
-      </div>
+    function init() {
+      nodes = [];
+      for (let i = 0; i < N; i++) {
+        nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: Math.random() * 2 + 1, p: Math.random() * Math.PI * 2, ps: Math.random() * .02 + .008 });
+      }
+    }
 
-      <div class="timeline-item">
-        <div class="timeline-year">03/2023 – 06/2023</div>
-        <h4>Java / MicroService Intern — The Rookies Program</h4>
-        <div class="company">NashTech Vietnam</div>
-        <ul>
-          <li>Intensive talent program focused on Java Spring Boot and MicroService architecture.</li>
-          <li>Built RESTful services and applied microservices design patterns hands-on.</li>
-        </ul>
-      </div>
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      nodes.forEach(n => { n.x += n.vx; n.y += n.vy; n.p += n.ps; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < MD) { const al = (1 - d / MD) * .18; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.strokeStyle = G + al + ')'; ctx.lineWidth = .6; ctx.stroke(); }
+        }
+      }
+      nodes.forEach(n => {
+        const g = (Math.sin(n.p) + 1) / 2, al = .25 + g * .4;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r + g * .8, 0, Math.PI * 2); ctx.fillStyle = G + al + ')'; ctx.fill();
+        if (n.r > 2.2) { ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3 + g * 2, 0, Math.PI * 2); ctx.strokeStyle = G + (al * .3) + ')'; ctx.lineWidth = .5; ctx.stroke(); }
+      });
+      requestAnimationFrame(draw);
+    }
 
-      <div class="timeline-item">
-        <div class="timeline-year">08/2020 – 09/2024</div>
-        <h4>BSc in Computer Science</h4>
-        <div class="company">Ton Duc Thang University — HCMC, Vietnam</div>
-        <ul>
-          <li>CGPA: 7.34/10.0</li>
-        </ul>
-      </div>
+    resize(); init(); draw();
+    window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
 
-    </div>
-  </div>
-</section>
+    const words = ["ServiceNow Developer", "Sustain Technical Lead", "Integration Engineer", "Platform Engineer", "Workflow Automation Specialist"];
+    let wi = 0, ci = 0, del = false;
+    function type() {
+      const cur = words[wi], el = document.getElementById('typing');
+      if (!del) { el.textContent = cur.substring(0, ci++); if (ci > cur.length) { del = true; setTimeout(type, 1600); return; } }
+      else { el.textContent = cur.substring(0, ci--); if (ci < 0) { del = false; wi = (wi + 1) % words.length; } }
+      setTimeout(type, del ? 42 : 90);
+    }
+    type();
 
-<!-- ── CERTIFICATIONS ── -->
-<section id="certs" class="hidden">
-  <div class="container">
-    <span class="section-label">Credentials</span>
-    <h2 class="section-title">Certifications</h2>
-    <div class="certs-grid">
-      <div class="cert-card">
-        <div class="cert-icon">🎓</div>
-        <div class="cert-info">
-          <h4>ServiceNow CSA</h4>
-          <p>Certified System Administrator</p>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🛠️</div>
-        <div class="cert-info">
-          <h4>ServiceNow CAD</h4>
-          <p>Certified Application Developer</p>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">☁️</div>
-        <div class="cert-info">
-          <h4>Microsoft Azure AI-900</h4>
-          <p>Azure AI Fundamentals</p>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🌐</div>
-        <div class="cert-info">
-          <h4>IELTS 7.0 · TOEIC 945</h4>
-          <p>English — Professional Proficiency</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); }); }, { threshold: .07 });
+    document.querySelectorAll('.hidden').forEach(el => obs.observe(el));
 
-<!-- ── CONTACT ── -->
-<section id="contact" class="hidden">
-  <div class="container contact-center">
-    <span class="section-label">Get in touch</span>
-    <h2 class="section-title">Contact</h2>
-    <p>Open to new opportunities, collaborations, and ServiceNow conversations.</p>
-    <p style="margin-top:12px;">
-      📧 <a href="mailto:vuquangphilong@gmail.com">vuquangphilong@gmail.com</a>
-      &nbsp;·&nbsp;
-      📞 <a href="tel:+84839646732">(+84) 839 646 732</a>
-    </p>
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/quang-phi-long-vu" target="_blank" class="contact-link-btn">
-        💼 LinkedIn
-      </a>
-      <a href="mailto:vuquangphilong@gmail.com" class="contact-link-btn">
-        ✉️ Email Me
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>// longvu — ServiceNow Developer — Vietnam</footer>
-
-<script>
-/* Typing Effect */
-const words = [
-  "ServiceNow Developer",
-  "Sustain Technical Lead",
-  "Integration Engineer",
-  "Platform Engineer",
-  "Workflow Automation Specialist"
-];
-let wordIndex = 0, charIndex = 0, deleting = false;
-
-function typeEffect() {
-  const current = words[wordIndex];
-  const el = document.getElementById("typing");
-  if (!deleting) {
-    el.textContent = current.substring(0, charIndex++);
-    if (charIndex > current.length) { deleting = true; setTimeout(typeEffect, 1600); return; }
-  } else {
-    el.textContent = current.substring(0, charIndex--);
-    if (charIndex < 0) { deleting = false; wordIndex = (wordIndex + 1) % words.length; }
-  }
-  setTimeout(typeEffect, deleting ? 45 : 95);
-}
-typeEffect();
-
-/* Scroll reveal */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
-</script>
+    const secs = document.querySelectorAll('section[id]'), navA = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = ''; secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+      navA.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--green)' : ''; });
+    }, { passive: true });
+  </script>
 </body>
+
 </html>
