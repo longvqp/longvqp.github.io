@@ -21,6 +21,17 @@
       --text: #f0f0f0;
       --muted: #888;
       --mono: 'JetBrains Mono', monospace;
+      --nav-bg: rgba(10, 10, 10, .7);
+    }
+
+    html.light {
+      --bg: #f4f6f0;
+      --card: #ffffff;
+      --card2: #eef1e8;
+      --border: #d4dcc8;
+      --text: #1a1a1a;
+      --muted: #5a6650;
+      --nav-bg: rgba(244, 246, 240, .85);
     }
 
     * {
@@ -82,6 +93,53 @@
       background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, .07) 2px, rgba(0, 0, 0, .07) 4px);
     }
 
+    /* ── Light mode overrides ── */
+    html.light .bg-glow {
+      background:
+        radial-gradient(ellipse 60% 55% at 10% 5%, rgba(129, 180, 65, .07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(129, 180, 65, .05) 0%, transparent 60%);
+    }
+    html.light .bg-grid {
+      background-image: linear-gradient(rgba(129, 180, 65, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 180, 65, .08) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    html.light .bg-scan {
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+    }
+    html.light .hero h1 {
+      background: linear-gradient(135deg, #1a1a1a 30%, #5a8020 70%, var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed;
+      bottom: 28px;
+      left: 24px;
+      z-index: 999;
+      background: var(--card);
+      border: 1px solid rgba(129, 180, 65, .35);
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      backdrop-filter: blur(12px);
+    }
+    .theme-toggle:hover {
+      border-color: var(--green);
+      color: var(--green);
+      box-shadow: 0 0 16px rgba(129, 180, 65, .3);
+      transform: scale(1.08);
+    }
+
     /* ── Nav ── */
     nav {
       position: fixed;
@@ -89,7 +147,7 @@
       top: 0;
       z-index: 999;
       backdrop-filter: blur(18px) saturate(1.4);
-      background: rgba(10, 10, 10, .7);
+      background: var(--nav-bg);
       border-bottom: 1px solid rgba(129, 180, 65, .15);
     }
 
@@ -912,6 +970,9 @@
     </div>
   </nav>
 
+  <!-- ── Theme toggle overlay ── -->
+  <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">🌙</button>
+
   <!-- Side dot nav -->
   <div class="side-nav" id="sideNav">
     <a class="side-dot" href="#hero" title="Home"></a>
@@ -1260,6 +1321,17 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: .1 });
     document.querySelectorAll('.hidden').forEach(el => revObs.observe(el));
+
+    /* ── Theme toggle ── */
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') { html.classList.add('light'); toggleBtn.textContent = '☀️'; }
+    toggleBtn.addEventListener('click', () => {
+      const isLight = html.classList.toggle('light');
+      toggleBtn.textContent = isLight ? '☀️' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
 
     /* Set hero active on load */
     setActive('hero');
