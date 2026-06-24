@@ -29,18 +29,24 @@
       box-sizing: border-box
     }
 
+    /* ── Snap container ── */
     html {
-      scroll-behavior: smooth
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100%;
     }
 
+    /* ── Background layers (fixed) ── */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -76,13 +82,7 @@
       background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, .07) 2px, rgba(0, 0, 0, .07) 4px);
     }
 
-    section,
-    nav,
-    footer {
-      position: relative;
-      z-index: 10
-    }
-
+    /* ── Nav ── */
     nav {
       position: fixed;
       width: 100%;
@@ -99,14 +99,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 28px
+      padding: 14px 28px
     }
 
     .logo {
       font-family: var(--mono);
       color: var(--green);
       font-weight: 600;
-      font-size: .9rem;
+      font-size: .88rem;
       letter-spacing: .05em;
       display: flex;
       align-items: center;
@@ -114,8 +114,8 @@
     }
 
     .logo-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 8px var(--green-glow);
@@ -131,43 +131,129 @@
       }
 
       50% {
-        opacity: .5;
-        transform: scale(.85)
+        opacity: .4;
+        transform: scale(.8)
       }
     }
 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      margin-left: 28px;
-      font-size: .83rem;
+      margin-left: 24px;
+      font-size: .8rem;
       letter-spacing: .03em;
       transition: color .2s
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links a.active {
       color: var(--green)
     }
 
-    .hero {
-      min-height: 100vh;
+    /* ── Side dot nav ── */
+    .side-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 998;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .side-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(129, 180, 65, .4);
+      background: transparent;
+      cursor: pointer;
+      transition: all .3s;
+      display: block;
+    }
+
+    .side-dot.active {
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+      border-color: var(--green)
+    }
+
+    .side-dot:hover {
+      border-color: var(--green)
+    }
+
+    /* ── Every section = one screen ── */
+    section {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 70px 28px 28px;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto
+    }
+
+    /* ── Section headers ── */
+    .section-eyebrow {
+      display: block;
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .14em;
+      text-transform: uppercase;
       text-align: center;
-      padding: 120px 28px 80px
+      margin-bottom: 6px
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 0;
+      color: var(--text);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -.02em
+    }
+
+    .section-title span {
+      color: var(--green)
+    }
+
+    .accent-line {
+      width: 48px;
+      height: 2px;
+      background: var(--green);
+      margin: 14px auto 28px;
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--green)
+    }
+
+    /* ─────────────────────────────────
+   HERO
+───────────────────────────────── */
+    .hero {
+      text-align: center;
+      flex-direction: column
     }
 
     .hero-inner {
-      max-width: 800px;
+      max-width: 780px;
       margin: auto
     }
 
     .platform-ring {
       position: relative;
-      width: 220px;
-      height: 220px;
-      margin: 0 auto 48px
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 28px
     }
 
     .ring {
@@ -180,20 +266,20 @@
     }
 
     .ring-1 {
-      width: 220px;
-      height: 220px;
+      width: 160px;
+      height: 160px;
       animation: spin 30s linear infinite
     }
 
     .ring-2 {
-      width: 160px;
-      height: 160px;
+      width: 112px;
+      height: 112px;
       animation: spin 20s linear infinite reverse
     }
 
     .ring-3 {
-      width: 100px;
-      height: 100px;
+      width: 70px;
+      height: 70px;
       border-color: rgba(129, 180, 65, .4)
     }
 
@@ -202,8 +288,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 56px;
-      height: 56px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(129, 180, 65, .3), rgba(129, 180, 65, .1));
       border: 1px solid rgba(129, 180, 65, .5);
@@ -211,20 +297,20 @@
       align-items: center;
       justify-content: center;
       font-family: var(--mono);
-      font-size: .62rem;
+      font-size: .55rem;
       color: var(--green);
       font-weight: 600;
       letter-spacing: .04em;
-      box-shadow: 0 0 20px rgba(129, 180, 65, .25);
+      box-shadow: 0 0 16px rgba(129, 180, 65, .25);
     }
 
     .ring-dot {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 8px var(--green)
+      box-shadow: 0 0 7px var(--green)
     }
 
     @keyframes spin {
@@ -238,19 +324,19 @@
       align-items: center;
       gap: 8px;
       font-family: var(--mono);
-      font-size: .72rem;
+      font-size: .68rem;
       color: var(--green);
-      letter-spacing: .14em;
+      letter-spacing: .13em;
       text-transform: uppercase;
-      margin-bottom: 28px;
-      padding: 6px 16px;
+      margin-bottom: 18px;
+      padding: 5px 14px;
       border: 1px solid rgba(129, 180, 65, .3);
       border-radius: 4px;
       background: rgba(129, 180, 65, .06);
     }
 
     .hero h1 {
-      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
       font-weight: 700;
       letter-spacing: -.03em;
       line-height: 1.05;
@@ -262,16 +348,16 @@
 
     .hero-typing {
       font-family: var(--mono);
-      font-size: clamp(.95rem, 2vw, 1.2rem);
+      font-size: clamp(.85rem, 1.8vw, 1.1rem);
       color: var(--green);
-      margin: 22px 0;
-      min-height: 1.8rem
+      margin: 14px 0;
+      min-height: 1.5rem
     }
 
     .cursor {
       display: inline-block;
       width: 2px;
-      height: 1em;
+      height: .95em;
       background: var(--green);
       vertical-align: middle;
       margin-left: 2px;
@@ -292,24 +378,24 @@
 
     .hero-sub {
       color: var(--muted);
-      font-size: .95rem;
-      max-width: 600px;
-      margin: 0 auto 32px;
-      line-height: 1.8
+      font-size: .88rem;
+      max-width: 560px;
+      margin: 0 auto 20px;
+      line-height: 1.75
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;
-      margin-bottom: 40px
+      gap: 6px;
+      margin-bottom: 28px
     }
 
     .badge {
       font-family: var(--mono);
-      font-size: .68rem;
-      padding: 5px 12px;
+      font-size: .63rem;
+      padding: 4px 10px;
       border: 1px solid rgba(129, 180, 65, .3);
       border-radius: 3px;
       color: var(--green);
@@ -321,71 +407,33 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
+      padding: 12px 28px;
       border-radius: 6px;
       background: var(--green);
       color: #000;
       text-decoration: none;
       font-weight: 700;
-      font-size: .88rem;
+      font-size: .85rem;
       letter-spacing: .02em;
       transition: all .2s;
-      box-shadow: 0 0 24px rgba(129, 180, 65, .3);
+      box-shadow: 0 0 20px rgba(129, 180, 65, .3);
     }
 
     .btn:hover {
       opacity: .9;
       transform: translateY(-2px);
-      box-shadow: 0 0 36px rgba(129, 180, 65, .45)
+      box-shadow: 0 0 30px rgba(129, 180, 65, .45)
     }
 
-    section {
-      padding: 110px 28px
-    }
-
-    .container {
-      max-width: 1120px;
-      margin: auto
-    }
-
-    .section-eyebrow {
-      display: block;
-      font-family: var(--mono);
-      font-size: .7rem;
-      color: var(--muted);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 8px
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      color: var(--text);
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -.02em
-    }
-
-    .section-title span {
-      color: var(--green)
-    }
-
-    .accent-line {
-      width: 60px;
-      height: 2px;
-      background: var(--green);
-      margin: 0 auto 56px;
-      border-radius: 1px;
-      box-shadow: 0 0 12px var(--green)
-    }
-
+    /* ─────────────────────────────────
+   ABOUT
+───────────────────────────────── */
     .about-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start
+      gap: 40px;
+      align-items: center;
+      margin-top: 0
     }
 
     @media(max-width:700px) {
@@ -396,9 +444,9 @@
 
     .about-text p {
       color: var(--muted);
-      margin-bottom: 14px;
-      font-size: .93rem;
-      line-height: 1.8
+      margin-bottom: 10px;
+      font-size: .86rem;
+      line-height: 1.75
     }
 
     .about-text strong {
@@ -408,62 +456,62 @@
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px
+      gap: 10px
     }
 
     .stat-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px 18px;
+      border-radius: 10px;
+      padding: 16px;
       text-align: center;
       transition: border-color .25s, box-shadow .25s
     }
 
     .stat-card:hover {
       border-color: rgba(129, 180, 65, .4);
-      box-shadow: 0 0 20px rgba(129, 180, 65, .1)
+      box-shadow: 0 0 16px rgba(129, 180, 65, .1)
     }
 
     .stat-num {
       font-family: var(--mono);
-      font-size: 2rem;
+      font-size: 1.7rem;
       font-weight: 600;
       color: var(--green);
       line-height: 1
     }
 
     .stat-label {
-      font-size: .72rem;
+      font-size: .68rem;
       color: var(--muted);
-      margin-top: 6px;
+      margin-top: 4px;
       text-transform: uppercase;
       letter-spacing: .07em
     }
 
     .sn-platform {
-      margin: 0 auto 60px;
-      max-width: 800px;
+      max-width: 100%;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      text-align: center
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 20px
     }
 
     .sn-platform-title {
       font-family: var(--mono);
-      font-size: .7rem;
+      font-size: .64rem;
       color: var(--muted);
       letter-spacing: .1em;
       text-transform: uppercase;
-      margin-bottom: 24px
+      margin-bottom: 14px
     }
 
     .sn-modules {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px
+      gap: 8px
     }
 
     @media(max-width:600px) {
@@ -473,14 +521,14 @@
     }
 
     .sn-mod {
-      padding: 14px 8px;
+      padding: 10px 6px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: var(--mono);
-      font-size: .7rem;
+      font-size: .62rem;
       color: var(--muted);
       background: var(--card2);
-      letter-spacing: .05em;
+      letter-spacing: .04em;
       transition: all .25s;
       cursor: default
     }
@@ -489,12 +537,12 @@
       border-color: var(--green);
       color: var(--green);
       background: rgba(129, 180, 65, .06);
-      box-shadow: 0 0 16px rgba(129, 180, 65, .15)
+      box-shadow: 0 0 12px rgba(129, 180, 65, .12)
     }
 
     .sn-mod-icon {
-      font-size: 1.2rem;
-      margin-bottom: 6px
+      font-size: 1rem;
+      margin-bottom: 4px
     }
 
     .sn-core {
@@ -502,20 +550,29 @@
       background: linear-gradient(135deg, rgba(129, 180, 65, .12), rgba(129, 180, 65, .05));
       border-color: rgba(129, 180, 65, .35);
       color: var(--green);
-      box-shadow: 0 0 24px rgba(129, 180, 65, .12)
+      box-shadow: 0 0 18px rgba(129, 180, 65, .1)
     }
 
+    /* ─────────────────────────────────
+   SKILLS
+───────────────────────────────── */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width:700px) {
+      .skills-grid {
+        grid-template-columns: 1fr 1fr
+      }
     }
 
     .skill-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 18px;
       transition: all .3s;
       position: relative;
       overflow: hidden
@@ -539,55 +596,71 @@
 
     .skill-card:hover {
       border-color: rgba(129, 180, 65, .3);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, .3), 0 0 20px rgba(129, 180, 65, .1)
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .3), 0 0 16px rgba(129, 180, 65, .1)
     }
 
     .skill-icon {
-      font-size: 1.3rem;
-      margin-bottom: 12px
+      font-size: 1.1rem;
+      margin-bottom: 8px
     }
 
     .skill-card h3 {
       color: var(--green);
-      font-size: .95rem;
-      margin-bottom: 8px;
+      font-size: .85rem;
+      margin-bottom: 5px;
       font-weight: 600
     }
 
     .skill-card p {
       color: var(--muted);
-      font-size: .83rem;
-      line-height: 1.6;
-      margin-bottom: 14px
+      font-size: .76rem;
+      line-height: 1.55;
+      margin-bottom: 10px
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px
+      gap: 4px
     }
 
     .tag {
       font-family: var(--mono);
-      font-size: .63rem;
-      padding: 3px 9px;
+      font-size: .58rem;
+      padding: 2px 7px;
       background: rgba(129, 180, 65, .08);
       border: 1px solid rgba(129, 180, 65, .2);
       border-radius: 3px;
       color: rgba(129, 180, 65, .85)
     }
 
+    /* ─────────────────────────────────
+   EXPERIENCE
+───────────────────────────────── */
+    .exp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start
+    }
+
+    @media(max-width:700px) {
+      .exp-layout {
+        grid-template-columns: 1fr
+      }
+    }
+
     .timeline {
       position: relative;
-      padding-left: 30px
+      padding-left: 22px
     }
 
     .timeline::before {
       content: "";
       position: absolute;
       left: 0;
-      top: 10px;
+      top: 8px;
       bottom: 0;
       width: 1px;
       background: linear-gradient(to bottom, var(--green) 0%, rgba(129, 180, 65, .05) 100%)
@@ -595,40 +668,40 @@
 
     .tl-item {
       position: relative;
-      margin-bottom: 44px
+      margin-bottom: 24px
     }
 
     .tl-item::before {
       content: "";
       position: absolute;
-      left: -36px;
-      top: 9px;
-      width: 12px;
-      height: 12px;
+      left: -28px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 12px var(--green-glow)
+      box-shadow: 0 0 10px var(--green-glow)
     }
 
     .tl-year {
       font-family: var(--mono);
-      font-size: .72rem;
+      font-size: .65rem;
       color: var(--green);
-      letter-spacing: .08em;
-      margin-bottom: 3px
+      letter-spacing: .07em;
+      margin-bottom: 2px
     }
 
     .tl-title {
       color: var(--text);
-      font-size: 1.05rem;
+      font-size: .92rem;
       font-weight: 600;
-      margin-bottom: 2px
+      margin-bottom: 1px
     }
 
     .tl-company {
-      font-size: .82rem;
+      font-size: .76rem;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 7px;
       font-style: italic
     }
 
@@ -639,10 +712,10 @@
 
     .tl-list li {
       color: var(--muted);
-      font-size: .86rem;
-      padding: 3px 0 3px 16px;
+      font-size: .78rem;
+      padding: 2px 0 2px 13px;
       position: relative;
-      line-height: 1.6
+      line-height: 1.55
     }
 
     .tl-list li::before {
@@ -652,17 +725,22 @@
       color: var(--green)
     }
 
+    /* ─────────────────────────────────
+   CERTS
+───────────────────────────────── */
     .certs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      max-width: 700px;
+      margin: 0 auto
     }
 
     .cert-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 22px;
+      padding: 20px;
       display: flex;
       gap: 14px;
       align-items: flex-start;
@@ -671,12 +749,12 @@
 
     .cert-card:hover {
       border-color: rgba(129, 180, 65, .35);
-      box-shadow: 0 0 20px rgba(129, 180, 65, .1)
+      box-shadow: 0 0 18px rgba(129, 180, 65, .1)
     }
 
     .cert-icon {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
       flex-shrink: 0;
       background: rgba(129, 180, 65, .1);
@@ -684,31 +762,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem
+      font-size: 1.05rem
     }
 
     .cert-info h4 {
-      font-size: .9rem;
+      font-size: .88rem;
       color: var(--text);
       margin-bottom: 3px;
       font-weight: 600
     }
 
     .cert-info p {
-      font-size: .76rem;
+      font-size: .74rem;
       color: var(--muted)
     }
 
+    /* ─────────────────────────────────
+   CONTACT
+───────────────────────────────── */
     .contact-wrap {
       text-align: center;
-      max-width: 600px;
+      max-width: 560px;
       margin: auto
     }
 
     .contact-wrap p {
       color: var(--muted);
       margin-bottom: 6px;
-      font-size: .93rem
+      font-size: .9rem
     }
 
     .contact-wrap a {
@@ -723,9 +804,9 @@
 
     .contact-btns {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
-      margin-top: 32px;
+      margin-top: 28px;
       flex-wrap: wrap
     }
 
@@ -733,12 +814,12 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      padding: 12px 24px;
+      padding: 11px 22px;
       border: 1px solid var(--border);
       border-radius: 8px;
       color: var(--text);
       text-decoration: none;
-      font-size: .86rem;
+      font-size: .84rem;
       transition: all .25s;
       background: var(--card)
     }
@@ -749,10 +830,18 @@
       color: var(--green)
     }
 
+    .footer-inline {
+      margin-top: 40px;
+      color: #333;
+      font-size: .68rem;
+      font-family: var(--mono)
+    }
+
+    /* ── Reveal anim ── */
     .hidden {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .7s ease, transform .7s ease
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease
     }
 
     .show {
@@ -760,13 +849,42 @@
       transform: none
     }
 
-    footer {
-      text-align: center;
-      padding: 28px;
-      color: #333;
-      font-size: .72rem;
+    /* ── Scroll hint ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: var(--mono);
-      border-top: 1px solid #1a1a1a
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: fadeUpDown 2s ease-in-out infinite;
+    }
+
+    .scroll-hint svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--muted)
+    }
+
+    @keyframes fadeUpDown {
+
+      0%,
+      100% {
+        opacity: .3;
+        transform: translateX(-50%) translateY(0)
+      }
+
+      50% {
+        opacity: .8;
+        transform: translateX(-50%) translateY(4px)
+      }
     }
   </style>
 </head>
@@ -778,10 +896,12 @@
   <div class="bg-grid"></div>
   <div class="bg-scan"></div>
 
+  <!-- Nav -->
   <nav>
     <div class="nav-container">
-      <div class="logo"><span class="logo-dot"></span>LONGVU.dev</div>
+      <div class="logo"><span class="logo-dot"></span>LONG VU</div>
       <div class="nav-links">
+        <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
@@ -791,21 +911,32 @@
     </div>
   </nav>
 
-  <section class="hero">
+  <!-- Side dot nav -->
+  <div class="side-nav" id="sideNav">
+    <a class="side-dot" href="#hero" title="Home"></a>
+    <a class="side-dot" href="#about" title="About"></a>
+    <a class="side-dot" href="#skills" title="Skills"></a>
+    <a class="side-dot" href="#experience" title="Experience"></a>
+    <a class="side-dot" href="#certs" title="Certifications"></a>
+    <a class="side-dot" href="#contact" title="Contact"></a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
     <div class="hero-inner">
       <div class="platform-ring">
         <div class="ring ring-1">
-          <div class="ring-dot" style="top:0;left:50%;transform:translateX(-50%) translateY(-4px)"></div>
-          <div class="ring-dot" style="bottom:0;left:50%;transform:translateX(-50%) translateY(4px)"></div>
+          <div class="ring-dot" style="top:0;left:50%;transform:translateX(-50%) translateY(-3px)"></div>
+          <div class="ring-dot" style="bottom:0;left:50%;transform:translateX(-50%) translateY(3px)"></div>
         </div>
         <div class="ring ring-2">
-          <div class="ring-dot" style="top:50%;right:0;transform:translateY(-50%) translateX(4px)"></div>
+          <div class="ring-dot" style="top:50%;right:0;transform:translateY(-50%) translateX(3px)"></div>
         </div>
         <div class="ring ring-3"></div>
         <div class="ring-center">SN<br>DEV</div>
       </div>
       <p class="hero-eyebrow">ServiceNow &middot; CSA &middot; CAD Certified</p>
-      <h1>Quang Phi Long Vu</h1>
+      <h1>Vu Quang Phi Long</h1>
       <div class="hero-typing"><span id="typing"></span><span class="cursor"></span></div>
       <p class="hero-sub">Enterprise ServiceNow developer specialising in ITSM, HRSD, integrations, MID Servers, and
         Agile platform delivery.</p>
@@ -814,12 +945,19 @@
         <span class="badge">IntegrationHub</span><span class="badge">Flow Designer</span>
         <span class="badge">MID Servers</span><span class="badge">CI/CD</span><span class="badge">Scrum</span>
       </div>
-      <a href="#experience" class="btn">View Experience &rarr;</a>
+      <a href="#about" class="btn">Explore &rarr;</a>
+    </div>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 14 14" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <path d="M7 2v10M3 8l4 4 4-4" />
+      </svg>
+      scroll
     </div>
   </section>
 
-  <section id="about" class="hidden">
-    <div class="container">
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="container hidden">
       <span class="section-eyebrow">Background</span>
       <h2 class="section-title">About <span>Me</span></h2>
       <div class="accent-line"></div>
@@ -854,13 +992,11 @@
       </div>
       <div class="about-layout">
         <div class="about-text">
-          <p>I'm a ServiceNow Developer at <strong>DXC Technology Vietnam</strong>, where I started as an intern in 2023
-            and progressed to <strong>Sustain Technical Lead</strong> on the Nestlé ITSM project — overseeing a team of
-            developers, managing the incident queue end-to-end, and driving platform stability.</p>
-          <p>I hold both <strong>ServiceNow CSA</strong> and <strong>CAD</strong> certifications, and graduated from
-            <strong>Ton Duc Thang University</strong> with a BSc in Computer Science (2024).</p>
-          <p>My background spans Java microservices, full SDLC delivery, and CI/CD practices. English: IELTS 7.0
-            &middot; TOEIC R&amp;W 945.</p>
+          <p>I'm a ServiceNow Developer at <strong>DXC Technology Vietnam</strong>, progressed to <strong>Sustain
+              Technical Lead</strong> on the Nestl&eacute; ITSM project — overseeing incident queue, enforcing platform
+            stability across dev, UAT, and production.</p>
+          <p>Holder of <strong>ServiceNow CSA &amp; CAD</strong> certifications. BSc Computer Science from <strong>Ton
+              Duc Thang University</strong> (2024). IELTS 7.0 &middot; TOEIC R&amp;W 945.</p>
         </div>
         <div class="stats-grid">
           <div class="stat-card">
@@ -884,8 +1020,9 @@
     </div>
   </section>
 
-  <section id="skills" class="hidden">
-    <div class="container">
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="container hidden">
       <span class="section-eyebrow">What I work with</span>
       <h2 class="section-title">Core <span>Skills</span></h2>
       <div class="accent-line"></div>
@@ -907,14 +1044,14 @@
         <div class="skill-card">
           <div class="skill-icon">🖥️</div>
           <h3>Infrastructure</h3>
-          <p>Deployment, configuration, and troubleshooting of distributed MID environments.</p>
+          <p>Deployment, config, and troubleshooting of distributed MID environments.</p>
           <div class="tags"><span class="tag">MID Servers</span><span class="tag">Discovery</span><span
               class="tag">Cloud Integrations</span></div>
         </div>
         <div class="skill-card">
           <div class="skill-icon">🔄</div>
           <h3>Delivery &amp; Process</h3>
-          <p>Agile delivery, CI/CD pipelines, and full SDLC management on Nestle ITSM.</p>
+          <p>Agile delivery, CI/CD pipelines, and full SDLC management.</p>
           <div class="tags"><span class="tag">Scrum</span><span class="tag">CI/CD</span><span
               class="tag">SDLC</span><span class="tag">UAT</span><span class="tag">Code Review</span></div>
         </div>
@@ -929,7 +1066,7 @@
         <div class="skill-card">
           <div class="skill-icon">👥</div>
           <h3>Leadership</h3>
-          <p>Leading developer teams, incident triage, runbook authoring, and technical mentoring.</p>
+          <p>Incident triage, runbook authoring, and developer mentoring.</p>
           <div class="tags"><span class="tag">Tech Lead</span><span class="tag">Incident Mgmt</span><span
               class="tag">Runbooks</span><span class="tag">Mentoring</span></div>
         </div>
@@ -937,56 +1074,68 @@
     </div>
   </section>
 
-  <section id="experience" class="hidden">
-    <div class="container">
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="container hidden">
       <span class="section-eyebrow">Career</span>
       <h2 class="section-title">Work <span>Experience</span></h2>
       <div class="accent-line"></div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-year">08/2023 &ndash; Present</div>
-          <div class="tl-title">ServiceNow Developer &rarr; Sustain Technical Lead</div>
-          <div class="tl-company">DXC Technology Vietnam &mdash; Nestle ITSM Project</div>
-          <ul class="tl-list">
-            <li>Progressed from developer to Technical Lead, overseeing a team managing the ITSM incident queue.</li>
-            <li>Enforced best practices through technical reviews, code quality standards, and developer guidance.</li>
-            <li>Managed end-to-end incident triage and prioritisation to ensure minimal service disruption for Nestle.
-            </li>
-            <li>Authored internal runbooks defining structured incident diagnosis and escalation procedures.</li>
-            <li>Delivered user stories and Scrum tasks within an Agile framework across full SDLC cycles.</li>
-            <li>Applied CI/CD practices &mdash; automated testing and controlled change promotion across dev, UAT, and
-              prod.</li>
-          </ul>
+      <div class="exp-layout">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">08/2023 &ndash; Present</div>
+            <div class="tl-title">ServiceNow Developer &rarr; Sustain Tech Lead</div>
+            <div class="tl-company">DXC Technology Vietnam &mdash; Nestl&eacute; ITSM</div>
+            <ul class="tl-list">
+              <li>Led developer team managing the ITSM incident queue end-to-end.</li>
+              <li>Enforced best practices via technical reviews and code quality standards.</li>
+              <li>Managed incident triage and prioritisation for Nestl&eacute; organisation.</li>
+              <li>Authored internal runbooks for structured incident diagnosis.</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">06/2023 &ndash; 08/2023</div>
+            <div class="tl-title">ServiceNow DECP Intern</div>
+            <div class="tl-company">DXC Technology Vietnam</div>
+            <ul class="tl-list">
+              <li>Structured training on ServiceNow Platform and ITSM processes.</li>
+              <li>Built familiarity with development workflows and platform admin.</li>
+            </ul>
+          </div>
         </div>
-        <div class="tl-item">
-          <div class="tl-year">06/2023 &ndash; 08/2023</div>
-          <div class="tl-title">ServiceNow DECP Intern</div>
-          <div class="tl-company">DXC Technology Vietnam</div>
-          <ul class="tl-list">
-            <li>Completed structured training on the ServiceNow Platform and ITSM processes.</li>
-            <li>Built familiarity with development workflows, platform administration, and ITSM best practices.</li>
-          </ul>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">03/2023 &ndash; 06/2023</div>
-          <div class="tl-title">Java / MicroService Intern &mdash; The Rookies Program</div>
-          <div class="tl-company">NashTech Vietnam</div>
-          <ul class="tl-list">
-            <li>Intensive talent program focused on Java Spring Boot and MicroService architecture.</li>
-            <li>Built RESTful services and applied microservices design patterns hands-on.</li>
-          </ul>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">08/2020 &ndash; 09/2024</div>
-          <div class="tl-title">BSc in Computer Science</div>
-          <div class="tl-company">Ton Duc Thang University &mdash; HCMC, Vietnam &middot; CGPA 7.34/10.0</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">08/2023 &ndash; Present (cont.)</div>
+            <div class="tl-title">Key Contributions</div>
+            <div class="tl-company">DXC Technology Vietnam</div>
+            <ul class="tl-list">
+              <li>Delivered Scrum tasks within Agile framework across full SDLC cycles.</li>
+              <li>Applied CI/CD &mdash; automated testing and controlled change promotion.</li>
+              <li>Maintained custom scripts, workflows, and platform configurations.</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">03/2023 &ndash; 06/2023</div>
+            <div class="tl-title">Java / MicroService Intern</div>
+            <div class="tl-company">NashTech Vietnam &mdash; The Rookies Program</div>
+            <ul class="tl-list">
+              <li>Java Spring Boot and MicroService architecture program.</li>
+              <li>Built RESTful services and applied microservices design patterns.</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">08/2020 &ndash; 09/2024</div>
+            <div class="tl-title">BSc Computer Science</div>
+            <div class="tl-company">Ton Duc Thang University &middot; CGPA 7.34/10.0</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="certs" class="hidden">
-    <div class="container">
+  <!-- ── CERTS ── -->
+  <section id="certs">
+    <div class="container hidden" style="text-align:center">
       <span class="section-eyebrow">Credentials</span>
       <h2 class="section-title">Certifications</h2>
       <div class="accent-line"></div>
@@ -1023,14 +1172,15 @@
     </div>
   </section>
 
-  <section id="contact" class="hidden">
-    <div class="container">
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="container hidden" style="text-align:center">
       <span class="section-eyebrow">Get in touch</span>
       <h2 class="section-title">Contact</h2>
       <div class="accent-line"></div>
       <div class="contact-wrap">
         <p>Open to new opportunities, collaborations, and ServiceNow conversations.</p>
-        <p style="margin-top:12px">
+        <p style="margin-top:10px">
           📧 <a href="mailto:vuquangphilong@gmail.com">vuquangphilong@gmail.com</a>
           &nbsp;&middot;&nbsp;
           📞 <a href="tel:+84839646732">(+84) 839 646 732</a>
@@ -1039,48 +1189,36 @@
           <a href="https://www.linkedin.com/in/quang-phi-long-vu" target="_blank" class="contact-btn">💼 LinkedIn</a>
           <a href="mailto:vuquangphilong@gmail.com" class="contact-btn">✉️ Email Me</a>
         </div>
+        <p class="footer-inline">// longvu.dev &mdash; ServiceNow Developer &mdash; Vietnam &mdash; 2026</p>
       </div>
     </div>
   </section>
 
-  <footer>// longvu.dev &mdash; ServiceNow Developer &mdash; Vietnam &mdash; 2026</footer>
-
   <script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, nodes = [], animId;
-    const G = 'rgba(129,180,65,';
-    const N = 55, MD = 160;
-
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
-
-    function init() {
-      nodes = [];
-      for (let i = 0; i < N; i++) {
-        nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: Math.random() * 2 + 1, p: Math.random() * Math.PI * 2, ps: Math.random() * .02 + .008 });
-      }
-    }
-
+    /* ── Canvas particle network ── */
+    const cv = document.getElementById('bg-canvas'), cx = cv.getContext('2d');
+    let W, H, ns = [];
+    const G = 'rgba(129,180,65,', N = 55, MD = 160;
+    function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight }
+    function init() { ns = []; for (let i = 0; i < N; i++)ns.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: Math.random() * 2 + 1, p: Math.random() * Math.PI * 2, ps: Math.random() * .02 + .008 }) }
     function draw() {
-      ctx.clearRect(0, 0, W, H);
-      nodes.forEach(n => { n.x += n.vx; n.y += n.vy; n.p += n.ps; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < MD) { const al = (1 - d / MD) * .18; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.strokeStyle = G + al + ')'; ctx.lineWidth = .6; ctx.stroke(); }
-        }
+      cx.clearRect(0, 0, W, H);
+      ns.forEach(n => { n.x += n.vx; n.y += n.vy; n.p += n.ps; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+      for (let i = 0; i < ns.length; i++)for (let j = i + 1; j < ns.length; j++) {
+        const a = ns[i], b = ns[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MD) { cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.strokeStyle = G + (1 - d / MD) * .18 + ')'; cx.lineWidth = .6; cx.stroke(); }
       }
-      nodes.forEach(n => {
+      ns.forEach(n => {
         const g = (Math.sin(n.p) + 1) / 2, al = .25 + g * .4;
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r + g * .8, 0, Math.PI * 2); ctx.fillStyle = G + al + ')'; ctx.fill();
-        if (n.r > 2.2) { ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3 + g * 2, 0, Math.PI * 2); ctx.strokeStyle = G + (al * .3) + ')'; ctx.lineWidth = .5; ctx.stroke(); }
+        cx.beginPath(); cx.arc(n.x, n.y, n.r + g * .8, 0, Math.PI * 2); cx.fillStyle = G + al + ')'; cx.fill();
+        if (n.r > 2.2) { cx.beginPath(); cx.arc(n.x, n.y, n.r + 3 + g * 2, 0, Math.PI * 2); cx.strokeStyle = G + (al * .3) + ')'; cx.lineWidth = .5; cx.stroke(); }
       });
       requestAnimationFrame(draw);
     }
-
     resize(); init(); draw();
     window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
 
+    /* ── Typing effect ── */
     const words = ["ServiceNow Developer", "Sustain Technical Lead", "Integration Engineer", "Platform Engineer", "Workflow Automation Specialist"];
     let wi = 0, ci = 0, del = false;
     function type() {
@@ -1091,14 +1229,38 @@
     }
     type();
 
-    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); }); }, { threshold: .07 });
-    document.querySelectorAll('.hidden').forEach(el => obs.observe(el));
+    /* ── Snap scroll tracking ── */
+    const sections = ['hero', 'about', 'skills', 'experience', 'certs', 'contact'];
+    const dots = document.querySelectorAll('.side-dot');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
-    const secs = document.querySelectorAll('section[id]'), navA = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let cur = ''; secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
-      navA.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--green)' : ''; });
-    }, { passive: true });
+    function setActive(id) {
+      dots.forEach((d, i) => { d.classList.toggle('active', sections[i] === id); });
+      navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+    }
+
+    /* Use IntersectionObserver on sections for snapping */
+    const snapObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+          setActive(e.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) snapObs.observe(el);
+    });
+
+    /* ── Reveal animation ── */
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: .1 });
+    document.querySelectorAll('.hidden').forEach(el => revObs.observe(el));
+
+    /* Set hero active on load */
+    setActive('hero');
   </script>
 </body>
 
